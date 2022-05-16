@@ -23,9 +23,9 @@ public final class Ticket {
         return new Ticket(lottos);
     }
 
-    public Rewards check(Lotto wining) {
+    public Rewards check(Winning wining) {
         return elements.stream()
-                .map(it -> it.compareTo(wining))
+                .map(wining::check)
                 .collect(Collectors.collectingAndThen(Collectors.toList(), Rewards::new));
     }
 
