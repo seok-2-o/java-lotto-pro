@@ -4,7 +4,6 @@ import domain.Lotto;
 import domain.LottoFactory;
 
 import java.util.Deque;
-import java.util.List;
 
 public class FixedLottoFactory implements LottoFactory {
 
@@ -18,8 +17,6 @@ public class FixedLottoFactory implements LottoFactory {
     public Lotto make() {
         return lottos.pop();
     }
-
-
 
 
 }

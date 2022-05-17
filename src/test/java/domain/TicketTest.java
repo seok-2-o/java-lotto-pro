@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import java.util.Set;
 
 import static domain.LottoNumber.of;
-import static java.util.Set.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TicketTest {
