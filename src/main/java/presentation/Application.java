@@ -12,13 +12,7 @@ public class Application {
 
         Ticket ticket = Ticket.buy(money, new RandomLottoFactory());
         ConsoleView.printTicket(ticket);
-
-        Lotto previous = ConsoleView.askWinning().stream()
-                .map(LottoNumber::of)
-                .collect(Collectors.collectingAndThen(Collectors.toSet(), Lotto::new));
-        LottoNumber bonus = LottoNumber.of(ConsoleView.askBonusNumber());
-        Winning winning = new Winning(previous, bonus);
-
+        Lotto winning = ConsoleView.askWinning().toWinning();
         Rewards rewards = ticket.check(winning);
         ConsoleView.printRewards(rewards);
     }
