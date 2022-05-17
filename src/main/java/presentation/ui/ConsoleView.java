@@ -44,9 +44,12 @@ public final class ConsoleView {
 
     public static CreateWinningCommand askWinning() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return Arrays.stream(SCANNER.nextLine().split(","))
+        Set<Integer> previous = Arrays.stream(SCANNER.nextLine().split(","))
                 .map(Integer::valueOf)
-                .collect(Collectors.collectingAndThen(Collectors.toSet(), CreateWinningCommand::new));
+                .collect(Collectors.toSet());
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonus =  Integer.valueOf(SCANNER.nextLine());
+        return new CreateWinningCommand(previous, bonus);
     }
 
     public static Integer askBonusNumber() {

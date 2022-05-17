@@ -12,7 +12,7 @@ public class Application {
 
         Ticket ticket = Ticket.buy(money, new RandomLottoFactory());
         ConsoleView.printTicket(ticket);
-        Lotto winning = ConsoleView.askWinning().toWinning();
+        Winning winning = ConsoleView.askWinning().toWinning();
         Rewards rewards = ticket.check(winning);
         ConsoleView.printRewards(rewards);
     }
