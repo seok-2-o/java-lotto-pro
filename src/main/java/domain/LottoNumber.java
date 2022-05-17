@@ -31,8 +31,8 @@ public final class LottoNumber implements Comparable<LottoNumber> {
     public static Set<LottoNumber> randomNumbers(int size) {
         Collections.shuffle(LOTTO_NUMBERS_POOL);
         return LOTTO_NUMBERS_POOL.stream()
-                        .limit(size)
-                        .collect(Collectors.toUnmodifiableSet());
+                .limit(size)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     public int value() {

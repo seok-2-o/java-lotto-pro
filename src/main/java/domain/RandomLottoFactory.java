@@ -1,6 +1,6 @@
 package domain;
 
-public class RandomLottoFactory implements LottoFactory{
+public class RandomLottoFactory implements LottoFactory {
 
     @Override
     public Lotto make() {

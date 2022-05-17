@@ -19,7 +19,7 @@ public final class Lotto {
     }
 
     public static Lotto auto(Set<LottoNumber> numbers) {
-       return new Lotto(numbers, false);
+        return new Lotto(numbers, false);
     }
 
     public static Lotto manual(Set<LottoNumber> numbers) {
@@ -27,7 +27,7 @@ public final class Lotto {
     }
 
     private void validate(Set<LottoNumber> numbers) {
-        if(numbers.size() != LOTTO_SELECTABLE_SIZE) {
+        if (numbers.size() != LOTTO_SELECTABLE_SIZE) {
             throw new IllegalArgumentException("로또 번호는 6개 보다 작거나 클수 없습니다.");
         }
     }

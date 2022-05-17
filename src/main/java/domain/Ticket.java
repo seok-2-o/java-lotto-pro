@@ -4,15 +4,15 @@ import dto.BuyManualLottosCommand;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static domain.Lotto.PRICE;
+import static java.util.stream.Collectors.*;
 
 public final class Ticket {
 
     private final List<Lotto> elements;
 
-    public Ticket(List<Lotto> elements) {
+    private Ticket(List<Lotto> elements) {
         this.elements = elements;
     }
 
@@ -35,11 +35,11 @@ public final class Ticket {
     public Rewards check(Winning wining) {
         return elements.stream()
                 .map(wining::check)
-                .collect(Collectors.collectingAndThen(Collectors.toList(), Rewards::new));
+                .collect(collectingAndThen(toList(), Rewards::new));
     }
 
     public List<Lotto> getElements() {
         return elements.stream()
-                .collect(Collectors.toUnmodifiableList());
+                .collect(toUnmodifiableList());
     }
 }
