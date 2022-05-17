@@ -10,10 +10,20 @@ public final class Lotto {
     public static final int LOTTO_SELECTABLE_SIZE = 6;
 
     private final Set<LottoNumber> numbers;
+    private final boolean manual;
 
-    public Lotto(Set<LottoNumber> numbers) {
+    public Lotto(Set<LottoNumber> numbers, boolean manual) {
         validate(numbers);
         this.numbers = numbers;
+        this.manual = manual;
+    }
+
+    public static Lotto auto(Set<LottoNumber> numbers) {
+       return new Lotto(numbers, false);
+    }
+
+    public static Lotto manual(Set<LottoNumber> numbers) {
+        return new Lotto(numbers, true);
     }
 
     private void validate(Set<LottoNumber> numbers) {

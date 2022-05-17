@@ -1,5 +1,7 @@
 package domain;
 
+import dto.BuyManualLottosCommand;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,12 +16,19 @@ public final class Ticket {
         this.elements = elements;
     }
 
-    public static Ticket buy(Money money, LottoFactory factory) {
+    public static Ticket buy(Money money, BuyManualLottosCommand command, LottoFactory factory) {
+
         List<Lotto> lottos = new ArrayList<>();
+
+        List<Lotto> manuals = command.toManuals();
+        money.subtract(PRICE.multiply(manuals.size()));
+        lottos.addAll(manuals);
+
         while (money.isGreaterThanEqual(PRICE)) {
             lottos.add(factory.make());
             money = money.subtract(PRICE);
         }
+
         return new Ticket(lottos);
     }
 

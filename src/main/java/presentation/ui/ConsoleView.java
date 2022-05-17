@@ -1,12 +1,10 @@
 package presentation.ui;
 
 import domain.*;
+import dto.BuyManualLottosCommand;
 import dto.CreateWinningCommand;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public final class ConsoleView {
@@ -60,5 +58,9 @@ public final class ConsoleView {
     public static long askPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
         return Long.parseLong(SCANNER.nextLine());
+    }
+
+    public static BuyManualLottosCommand askBuyManually() {
+        return new BuyManualLottosCommand(Collections.emptyList());
     }
 }

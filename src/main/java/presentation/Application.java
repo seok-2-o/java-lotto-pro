@@ -9,7 +9,7 @@ public class Application {
 
     public static void main(String[] args) {
         Money money = new Money(ConsoleView.askPurchaseAmount());
-
+        ConsoleView.askBuyManually();
         Ticket ticket = Ticket.buy(money, new RandomLottoFactory());
         ConsoleView.printTicket(ticket);
         Winning winning = ConsoleView.askWinning().toWinning();
