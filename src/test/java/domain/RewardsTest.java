@@ -23,9 +23,12 @@ class RewardsTest {
     void calculateYield() {
         Rewards rewards = new Rewards(List.of(
                 Reward.FOURTH,
+                Reward.MISS,
+                Reward.MISS,
+                Reward.MISS,
                 Reward.MISS
         ));
-        assertThat(rewards.calculateRateOfReturn()).isEqualTo(1.5);
+        assertThat(rewards.calculateRateOfReturn()).isEqualTo(9.0);
     }
 
 }

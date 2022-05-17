@@ -1,5 +1,6 @@
 package domain;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,6 +36,18 @@ class LottoTest {
         Lotto lotto = Lotto.manual(Set.of(of(1),of(2),of(3),of(4),of(5),of(6)));
         Lotto other = Lotto.manual(Set.of(of(1),of(2),of(3),of(7),of(8),of(9)));
         assertThat(lotto.compareTo(other)).isEqualTo(3);
+    }
+
+    @DisplayName("자동으로 발급된 로또인지, 수동으로 발급된 로또인지 확인한다.")
+    @Test
+    void isManual() {
+        Lotto manual = Lotto.manual(Set.of(of(1),of(2),of(3),of(4),of(5),of(6)));
+        Lotto auto = Lotto.auto(Set.of(of(1),of(2),of(3),of(7),of(8),of(9)));
+
+        Assertions.assertAll(
+                () -> assertThat(manual.isManual()).isTrue(),
+                () -> assertThat(auto.isManual()).isFalse()
+        );
     }
 
 }

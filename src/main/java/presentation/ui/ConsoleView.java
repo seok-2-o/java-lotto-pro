@@ -7,6 +7,8 @@ import dto.CreateWinningCommand;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.collectingAndThen;
+
 public final class ConsoleView {
 
     private static final Scanner SCANNER = new Scanner(System.in);
@@ -16,7 +18,10 @@ public final class ConsoleView {
 
     public static void printTicket(Ticket ticket) {
         List<Lotto> lottos = ticket.getElements();
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+        long countOfManuals = lottos.stream()
+                        .filter(Lotto::isManual)
+                        .count();
+        System.out.println("수동으로 " + countOfManuals +"장, 자동으로 " +  (lottos.size() - countOfManuals) + "장을 구매했습니다.");
         for (Lotto lotto : lottos) {
             System.out.println("[" + toJoinString(lotto) + "]");
         }
@@ -46,13 +51,8 @@ public final class ConsoleView {
                 .map(Integer::valueOf)
                 .collect(Collectors.toSet());
         System.out.println("보너스 볼을 입력해 주세요.");
-        int bonus =  Integer.valueOf(SCANNER.nextLine());
+        int bonus =  Integer.parseInt(SCANNER.nextLine());
         return new CreateWinningCommand(previous, bonus);
-    }
-
-    public static Integer askBonusNumber() {
-        System.out.println("보너스 볼을 입력해 주세요.");
-        return Integer.valueOf(SCANNER.nextLine());
     }
 
     public static long askPurchaseAmount() {
@@ -61,6 +61,15 @@ public final class ConsoleView {
     }
 
     public static BuyManualLottosCommand askBuyManually() {
-        return new BuyManualLottosCommand(Collections.emptyList());
+        List<Set<Integer>> manuals = new ArrayList<>();
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int numberOfManual = Integer.parseInt(SCANNER.nextLine());
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for (int idx = 0; idx < numberOfManual; idx ++) {
+            Arrays.stream(SCANNER.nextLine().split(","))
+                    .map(Integer::valueOf)
+                    .collect(collectingAndThen(Collectors.toSet(), manuals::add));
+        }
+        return new BuyManualLottosCommand(manuals);
     }
 }

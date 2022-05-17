@@ -47,4 +47,8 @@ public final class Lotto {
     public boolean contains(LottoNumber bonus) {
         return this.numbers.contains(bonus);
     }
+
+    public boolean isManual() {
+        return manual;
+    }
 }

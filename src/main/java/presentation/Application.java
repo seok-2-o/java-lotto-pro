@@ -1,6 +1,7 @@
 package presentation;
 
 import domain.*;
+import dto.BuyManualLottosCommand;
 import presentation.ui.ConsoleView;
 
 import java.util.stream.Collectors;
@@ -9,8 +10,8 @@ public class Application {
 
     public static void main(String[] args) {
         Money money = new Money(ConsoleView.askPurchaseAmount());
-        ConsoleView.askBuyManually();
-        Ticket ticket = Ticket.buy(money, new RandomLottoFactory());
+        BuyManualLottosCommand manuals = ConsoleView.askBuyManually();
+        Ticket ticket = Ticket.buy(money, manuals, new RandomLottoFactory());
         ConsoleView.printTicket(ticket);
         Winning winning = ConsoleView.askWinning().toWinning();
         Rewards rewards = ticket.check(winning);
