@@ -25,7 +25,6 @@ public final class ConsoleView {
         for (Lotto lotto : lottos) {
             System.out.println("[" + toJoinString(lotto) + "]");
         }
-
     }
 
     private static String toJoinString(Lotto lotto) {

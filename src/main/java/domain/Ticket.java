@@ -21,7 +21,7 @@ public final class Ticket {
         List<Lotto> lottos = new ArrayList<>();
 
         List<Lotto> manuals = command.toManuals();
-        money.subtract(PRICE.multiply(manuals.size()));
+        money = money.subtract(PRICE.multiply(manuals.size()));
         lottos.addAll(manuals);
 
         while (money.isGreaterThanEqual(PRICE)) {
