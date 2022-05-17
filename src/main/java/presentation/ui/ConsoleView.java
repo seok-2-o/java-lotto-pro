@@ -5,6 +5,7 @@ import domain.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public final class ConsoleView {
@@ -40,17 +41,16 @@ public final class ConsoleView {
         System.out.println("총 수익률은 " + rewards.calculateRateOfReturn() + "입니다.");
     }
 
-    public static Lotto askWinning() {
+    public static Set<Integer> askWinning() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return Arrays.stream(SCANNER.nextLine().split(","))
                 .map(Integer::valueOf)
-                .map(LottoNumber::of)
-                .collect(Collectors.collectingAndThen(Collectors.toSet(), Lotto::new));
+                .collect(Collectors.toSet());
     }
 
-    public static LottoNumber askBonusNumber() {
+    public static Integer askBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
-        return LottoNumber.of(Integer.valueOf(SCANNER.nextLine()));
+        return Integer.valueOf(SCANNER.nextLine());
     }
 
     public static long askPurchaseAmount() {
