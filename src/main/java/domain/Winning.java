@@ -2,12 +2,12 @@ package domain;
 
 public class Winning {
 
-    private final Lotto lotto;
+    private final Lotto previous;
     private final LottoNumber bonus;
 
     public Winning(Lotto lotto, LottoNumber bonus) {
         validate(lotto, bonus);
-        this.lotto = lotto;
+        this.previous = lotto;
         this.bonus = bonus;
     }
 
@@ -18,6 +18,6 @@ public class Winning {
     }
 
     public Reward check(Lotto lotto) {
-        return Reward.of(lotto.compareTo(this.lotto), lotto.contains(bonus));
+        return Reward.of(lotto.compareTo(this.previous), lotto.contains(this.bonus));
     }
 }
