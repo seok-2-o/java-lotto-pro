@@ -22,7 +22,7 @@ public final class CreateWinningCommand {
     public Winning toWinning() {
         Lotto lotto = previous.stream()
                 .map(LottoNumber::of)
-                .collect(collectingAndThen(toSet(), Lotto::new));
+                .collect(collectingAndThen(toSet(), Lotto::manual));
         return new Winning(lotto, LottoNumber.of(bonus));
     }
 }

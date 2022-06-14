@@ -1,25 +1,24 @@
 package domain;
 
 import domain.helper.FixedLottoFactory;
-import org.assertj.core.api.Assertions;
+import dto.BuyManualLottosCommand;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Set;
 
 import static domain.LottoNumber.of;
-import static java.util.Set.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class TicketTest {
 
     @DisplayName("입력받은 금액만큼 로또를 구매한다.")
     @Test
     void buy() {
-        Ticket ticket = Ticket.buy(new Money(5_000L), new RandomLottoFactory());
+        Ticket ticket = Ticket.buy(new Money(5_000L), new BuyManualLottosCommand(Collections.emptyList()), new RandomLottoFactory());
         assertThat(ticket.getElements()).hasSize(5);
     }
 
@@ -29,11 +28,11 @@ class TicketTest {
     void check() {
         //given
         Deque<Lotto> fixture = new LinkedList<>();
-        fixture.push(new Lotto(Set.of(of(1), of(2), of(3), of(4), of(5), of(6))));
-        fixture.push(new Lotto(Set.of(of(1), of(2), of(3), of(4), of(5), of(7))));
-        fixture.push(new Lotto(Set.of(of(1), of(2), of(3), of(7), of(8), of(9))));
-        Lotto previous = new Lotto(Set.of(of(1), of(2), of(3), of(4), of(5), of(6)));
-        Ticket ticket = Ticket.buy(new Money(3_000L), new FixedLottoFactory(fixture));
+        fixture.push(Lotto.manual(Set.of(of(1), of(2), of(3), of(4), of(5), of(6))));
+        fixture.push(Lotto.manual(Set.of(of(1), of(2), of(3), of(4), of(5), of(7))));
+        fixture.push(Lotto.manual(Set.of(of(1), of(2), of(3), of(7), of(8), of(9))));
+        Lotto previous = Lotto.manual(Set.of(of(1), of(2), of(3), of(4), of(5), of(6)));
+        Ticket ticket = Ticket.buy(new Money(3_000L), new BuyManualLottosCommand(Collections.emptyList()), new FixedLottoFactory(fixture));
         //when
         Winning winning = new Winning(previous, LottoNumber.of(7));
         Rewards rewards = ticket.check(winning);
