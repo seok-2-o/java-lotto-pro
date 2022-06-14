@@ -16,20 +16,21 @@ class RewardTest {
 
     private static Stream<Arguments> provideReward() {
         return Stream.of(
-          Arguments.of(6, Reward.FIRST),
-          Arguments.of(5, Reward.SECOND),
-          Arguments.of(4, Reward.THIRD),
-          Arguments.of(3, Reward.FOURTH),
-          Arguments.of(2, Reward.MISS),
-          Arguments.of(1, Reward.MISS),
-          Arguments.of(0, Reward.MISS)
+          Arguments.of(6, false, Reward.FIRST),
+          Arguments.of(5, true, Reward.SECOND),
+          Arguments.of(5, false, Reward.THIRD),
+          Arguments.of(4, false, Reward.FOURTH),
+          Arguments.of(3, false, Reward.FIFTH),
+          Arguments.of(2, false, Reward.MISS),
+          Arguments.of(1, false, Reward.MISS),
+          Arguments.of(0, false, Reward.MISS)
         );
     }
 
     @DisplayName("일치 갯수에 따른 보상을 응답한다.")
     @MethodSource(value = "provideReward")
     @ParameterizedTest
-    void valueOf(int matches, Reward expected) {
-        assertThat(Reward.of(matches)).isEqualTo(expected);
+    void valueOf(int matches, boolean bonus, Reward expected) {
+        assertThat(Reward.of(matches, bonus)).isEqualTo(expected);
     }
 }

@@ -30,14 +30,17 @@ class TicketTest {
         //given
         Deque<Lotto> fixture = new LinkedList<>();
         fixture.push(new Lotto(Set.of(of(1), of(2), of(3), of(4), of(5), of(6))));
+        fixture.push(new Lotto(Set.of(of(1), of(2), of(3), of(4), of(5), of(7))));
         fixture.push(new Lotto(Set.of(of(1), of(2), of(3), of(7), of(8), of(9))));
-        Lotto wining = new Lotto(Set.of(of(1), of(2), of(3), of(4), of(5), of(6)));
-        Ticket ticket = Ticket.buy(new Money(2_000L), new FixedLottoFactory(fixture));
+        Lotto previous = new Lotto(Set.of(of(1), of(2), of(3), of(4), of(5), of(6)));
+        Ticket ticket = Ticket.buy(new Money(3_000L), new FixedLottoFactory(fixture));
         //when
-        Rewards rewards = ticket.check(wining);
+        Winning winning = new Winning(previous, LottoNumber.of(7));
+        Rewards rewards = ticket.check(winning);
 
         assertThat(rewards.count(Reward.FIRST)).isEqualTo(1);
-        assertThat(rewards.count(Reward.FOURTH)).isEqualTo(1);
-        assertThat(rewards.count(Reward.MISS)).isEqualTo(0);
+        assertThat(rewards.count(Reward.SECOND)).isEqualTo(1);
+        assertThat(rewards.count(Reward.FIFTH)).isEqualTo(1);
+        assertThat(rewards.count(Reward.MISS)).isZero();
     }
 }

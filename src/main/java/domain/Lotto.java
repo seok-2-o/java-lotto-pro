@@ -22,15 +22,19 @@ public final class Lotto {
         }
     }
 
-    public Reward compareTo(Lotto other) {
+    public int compareTo(Lotto other) {
         Set<LottoNumber> copy = new HashSet<>(numbers);
         copy.retainAll(other.numbers);
-        return Reward.of(copy.size());
+        return copy.size();
     }
 
     public List<LottoNumber> getSortedNumbers() {
         return numbers.stream()
                 .sorted()
                 .collect(Collectors.toUnmodifiableList());
+    }
+
+    public boolean contains(LottoNumber bonus) {
+        return this.numbers.contains(bonus);
     }
 }

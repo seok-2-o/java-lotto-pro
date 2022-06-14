@@ -13,7 +13,8 @@ public final class ConsoleView {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private ConsoleView () {}
+    private ConsoleView() {
+    }
 
     public static void printTicket(Ticket ticket) {
         List<Lotto> lottos = ticket.getElements();
@@ -33,18 +34,27 @@ public final class ConsoleView {
 
     public static void printRewards(Rewards rewards) {
         System.out.println("당첨 통계\n---------");
-        System.out.println("3개 일치(5,000원)-" + rewards.count(Reward.FOURTH) + "개");
-        System.out.println("4개 일치(50,000원)-" + rewards.count(Reward.THIRD) + "개");
-        System.out.println("5개 일치(1,500,000원)-" + rewards.count(Reward.SECOND) + "개");
+        System.out.println("3개 일치(5,000원)-" + rewards.count(Reward.FIFTH) + "개");
+        System.out.println("4개 일치(50,000원)-" + rewards.count(Reward.FOURTH) + "개");
+        System.out.println("5개 일치(1,500,000원)-" + rewards.count(Reward.THIRD) + "개");
+        System.out.println("5개 일치, 보너스 볼 일치(30,000,000원)-" + rewards.count(Reward.SECOND) + "개");
         System.out.println("6개 일치(2,000,000,000원)-" + rewards.count(Reward.FIRST) + "개");
         System.out.println("총 수익률은 " + rewards.calculateRateOfReturn() + "입니다.");
     }
 
     public static CreateWinningCommand askWinning() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return Arrays.stream(SCANNER.nextLine().split(","))
+        Set<Integer> previous = Arrays.stream(SCANNER.nextLine().split(","))
                 .map(Integer::valueOf)
-                .collect(Collectors.collectingAndThen(Collectors.toSet(), CreateWinningCommand::new));
+                .collect(Collectors.toSet());
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonus =  Integer.valueOf(SCANNER.nextLine());
+        return new CreateWinningCommand(previous, bonus);
+    }
+
+    public static Integer askBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.valueOf(SCANNER.nextLine());
     }
 
     public static long askPurchaseAmount() {
